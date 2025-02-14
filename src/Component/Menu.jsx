@@ -6,7 +6,7 @@ function Menu() {
   <>
       <nav className="navbar navbar-expand-md navbar-dark bg-secondary">
         <div className="container">
-            <NavLink className="navbar-brand">Expense Tracker</NavLink>
+            <NavLink to={`/`}className="navbar-brand">Expense Tracker</NavLink>
 
             <button className="btn btn-outline-warning" data-bs-toggle="offcanvas" data-bs-target="#sideMenu">
                 <span className="navbar-toggler-icon"></span>
@@ -30,7 +30,16 @@ function Menu() {
                      <NavLink to={`/create`} className="nav-link">Create</NavLink>
                     </li>
                 </ul>
-            </div>
+            
+                <ul className='list-group text-center'>
+                    <li className='list-group-item nav-item'>
+                        <NavLink to={`/login`} className='nav-link'>Login</NavLink>
+                    </li>
+                    <li className='list-group-item nav-item'>
+                     <NavLink to={`/register`} className="nav-link">Register</NavLink>
+                    </li>
+                </ul>
+                </div>
         </div>
   </>
   )
