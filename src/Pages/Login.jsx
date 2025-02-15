@@ -1,11 +1,15 @@
 import React,{ useState } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import authApi from '../API/AuthAPI'
+import useAuth from '../Hooks/useAuth'
 function Login() {
       const [user,setUSer]=useState({
             email:"",
             password:""
         })
+        const { setToken,setIsLogin}=useAuth()
+        const navigate=useNavigate()
         const readInput=(e)=>{
             const {name,value}=e.target
             setUSer({...user,[name]:value})
@@ -14,6 +18,17 @@ function Login() {
             e.preventDefault()
            try{
             console.log('user=',user)
+            await authApi.login(user)
+            .then(res=>{
+              toast.success(res.data.msg)
+              if(res.data.status){
+                setIsLogin(res.data.status)
+                setToken(res.data.LoginToken)
+                sessionStorage.setItem('token',res.data.LoginToken)
+                sessionStorage.setItem('isLogin',res.data.status)
+                navigate('/')
+              }
+            }).catch(err=>toast.error(err.response.data.msg))
            }catch(err){
             return toast.error(err.message)
            }

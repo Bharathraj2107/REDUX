@@ -8,11 +8,19 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import "bootstrap/dist/js/bootstrap.bundle.js"
 import "bootstrap-icons/font/bootstrap-icons.css"
 import "react-toastify/ReactToastify.css"
-
+import AuthProvider from './Context/AuthContext';
+import { Provider } from 'react-redux';
+import AppStore from './Redux/Store/AppStore';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <AuthProvider>
+    <AuthProvider>
+      <Provider store={AppStore}>
+        <App />
+      </Provider>
+    </AuthProvider>
+    </AuthProvider>
   </React.StrictMode>
 );
 
