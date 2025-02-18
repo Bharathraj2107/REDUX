@@ -1,10 +1,17 @@
 import React,{ useState } from 'react'
 import {toast} from 'react-toastify'
+import { useDispatch } from 'react-redux';
+import { addTransaction } from '../Redux/Actions/ExpenseAction';
+import  { useNavigate } from 'react-router-dom';
+
 function Create(props) {
   const[transaction,setTransaction]=useState({
     title:"",
     amount:0
-  });
+  })
+  const navigate=useNavigate()
+  const dispatch=useDispatch()
+
   const readInput =async(e)=>{
     const {name,value}=e.target;
     setTransaction({...transaction,[name]:value})
@@ -13,6 +20,12 @@ function Create(props) {
     e.preventDefault()
     try{
       console.log('data=',transaction)
+      await dispatch(addTransaction(transaction))
+      .unwrap()
+      .then(res=>{
+        toast.success(res.msg)
+        navigate(`/`)
+      }).catch(err=>toast.error(err.response.data.msg))
     }catch(err){
       toast.error(err.message)
     }

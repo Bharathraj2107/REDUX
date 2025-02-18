@@ -24,7 +24,7 @@ function Login() {
               if(res.data.status){
                 setIsLogin(res.data.status)
                 setToken(res.data.LoginToken)
-                sessionStorage.setItem('token',res.data.LoginToken)
+                sessionStorage.setItem('token',res.data.loginToken)
                 sessionStorage.setItem('isLogin',res.data.status)
                 navigate('/')
               }
